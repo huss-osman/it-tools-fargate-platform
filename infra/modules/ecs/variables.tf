@@ -40,8 +40,8 @@ variable "task_cpu" {
   default     = 256
 
   validation {
-    condition     = contains([256, 512, 1024, 2048, 4096, 8192, 16384], var.task_cpu)
-    error_message = "Task CPU must be a supported AWS Fargate CPU value."
+    condition     = contains([256, 512, 1024], var.task_cpu)
+    error_message = "Task CPU must be 256, 512, or 1024 CPU units."
   }
 }
 
@@ -51,7 +51,11 @@ variable "task_memory" {
   default     = 512
 
   validation {
-    condition     = contains([512, 1024, 2048, 3072, 4096, 5120, 6144, 7168, 8192, 9216, 10240, 11264, 12288, 13312, 14336, 15360, 16384], var.task_memory)
-    error_message = "Task memory must be a supported AWS Fargate memory value."
+    condition = (
+      (var.task_cpu == 256 && contains([512, 1024, 2048], var.task_memory)) ||
+      (var.task_cpu == 512 && contains([1024, 2048, 3072, 4096], var.task_memory)) ||
+      (var.task_cpu == 1024 && contains([2048, 3072, 4096, 5120, 6144, 7168, 8192], var.task_memory))
+    )
+    error_message = "Task memory must be compatible with the selected Fargate CPU value."
   }
 }
