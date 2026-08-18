@@ -2,46 +2,73 @@ name: Build and Push to ECR
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
     paths:
       - "app/**"
-      - ".github/workflows/build-and-push.yaml"
+      - ".github/workflows/build.yml"
+  workflow_dispatch:
 
 permissions:
   id-token: write
   contents: read
 
 env:
-  AWS_REGION: eu-west-2
   ECR_REPOSITORY: it-tools-fargate
+  AWS_REGION: eu-west-2
+  IMAGE_TAG: ${{ github.sha }}
+
+concurrency:
+  group: build-and-push
+  cancel-in-progress: true
 
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: Checkout Code
         uses: actions/checkout@v4
 
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v4
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v6
         with:
           role-to-assume: arn:aws:iam::606349121896:role/GitHub_Actions_OIDC_Role
           aws-region: ${{ env.AWS_REGION }}
 
       - name: Login to Amazon ECR
-        id: login-ecr
         uses: aws-actions/amazon-ecr-login@v2
+        id: login-ecr
 
-      - name: Build and push image
+      - name: Build Image
+        working-directory: ./app
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-          IMAGE_TAG: ${{ github.sha }}
         run: |
           docker build \
             -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG \
-            ./app
+            -t $ECR_REGISTRY/$ECR_REPOSITORY:latest \
+            .
 
-          docker push \
-            $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+      - name: Install Grype
+        run: |
+          curl -sSfL https://raw.githubusercontent.com/anchore/grype/main/install.sh | \
+          sh -s -- -b /usr/local/bin
+
+      - name: Update Grype DB
+        run: |
+          grype db update
+
+      - name: Scan Image
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+        run: |
+          grype $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG \
+            --fail-on critical \
+            -o table
+
+      - name: Push to ECR
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+        run: |
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:latest
