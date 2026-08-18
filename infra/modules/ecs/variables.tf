@@ -27,6 +27,11 @@ variable "app_port" {
   description = "Port exposed by the application container"
   type        = number
   default     = 8080
+
+  validation {
+    condition     = var.app_port >= 1 && var.app_port <= 65535
+    error_message = "Application port must be between 1 and 65535."
+  }
 }
 
 variable "task_cpu" {
