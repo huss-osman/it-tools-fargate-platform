@@ -1,0 +1,143 @@
+# Local .terraform directories
+.terraform/
+**/.terraform/*
+
+# .tfstate files
+*.tfstate
+*.tfstate.*
+
+# Crash log files
+crash.log
+crash.*.log
+
+# Exclude all .tfvars files, which may contain sensitive data such as
+# passwords, configuration values, or other environment-specific data.
+*.tfvars
+*.tfvars.json
+
+# Keep example variable files
+!terraform.tfvars.example
+
+# Ignore override files as they are usually used to override resources locally
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# Ignore transient lock info files created by Terraform
+.terraform.tfstate.lock.info
+
+# Ignore Terraform plan output files
+*.tfplan
+plan.out
+planout
+
+# Ignore Terraform CLI configuration files
+.terraformrc
+terraform.rc
+
+# Optional Terraform graph output
+*.dot
+
+
+# AWS credentials and local AWS configuration
+.aws/
+**/.aws/
+.aws-sam/
+
+# Never commit AWS credential files
+credentials
+aws_credentials
+
+
+# Environment variable files
+.env
+.env.*
+!.env.example
+
+
+# Private keys, certificates, and secrets
+*.pem
+*.key
+*.crt
+*.csr
+*.cer
+*.p12
+*.pfx
+*.jks
+*.keystore
+
+
+# Node.js dependencies
+node_modules/
+**/node_modules/
+
+# Application build output
+dist/
+**/dist/
+
+# Test and coverage output
+coverage/
+playwright-report/
+test-results/
+
+
+# Docker local files
+docker-compose.override.yml
+.docker/
+docker*.log
+
+# Local Docker volumes
+volumes/
+volume/
+
+
+# GitHub Actions local testing
+.act/
+
+
+# VS Code and IDE configuration
+.vscode/
+.idea/
+
+
+# Log files
+*.log
+logs/
+
+
+# Operating system generated files
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+
+# Vim temporary files
+*.swp
+*.swo
+*~
+
+
+# Python cache files
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.coverage
+
+# Python virtual environments
+venv/
+.venv/
+
+
+# Archive files
+*.zip
+*.tar
+*.tar.gz
+*.gz
+
+
+# Backup and temporary files
+*.bak
+*.tmp
+*.cache
