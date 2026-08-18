@@ -81,3 +81,14 @@ variable "log_retention_days" {
     error_message = "Log retention must be a supported CloudWatch retention period."
   }
 }
+
+variable "image_tag" {
+  description = "Tag of the ECR container image deployed to ECS"
+  type        = string
+  default     = "latest"
+
+  validation {
+    condition     = length(trimspace(var.image_tag)) > 0
+    error_message = "Image tag must not be empty."
+  }
+}
