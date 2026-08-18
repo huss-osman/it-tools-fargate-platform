@@ -59,3 +59,14 @@ variable "task_memory" {
     error_message = "Task memory must be compatible with the selected Fargate CPU value."
   }
 }
+
+variable "desired_count" {
+  description = "Number of ECS tasks maintained by the service"
+  type        = number
+  default     = 1
+
+  validation {
+    condition     = var.desired_count >= 1
+    error_message = "Desired count must be at least 1."
+  }
+}
