@@ -1,17 +1,28 @@
-# build stage
-FROM node:lts-alpine AS build-stage
-# Set environment variables for non-interactive npm installs
-ENV NPM_CONFIG_LOGLEVEL warn
-ENV CI true
+# Stage 1: Build Stage
+
+FROM node:24-alpine AS build
+
 WORKDIR /app
+
 COPY package.json pnpm-lock.yaml ./
-RUN npm install -g pnpm && pnpm i --frozen-lockfile
+
+RUN corepack enable
+
+RUN pnpm install --frozen-lockfile
+
 COPY . .
+
 RUN pnpm build
 
-# production stage
-FROM nginx:stable-alpine AS production-stage
-COPY --from=build-stage /app/dist /usr/share/nginx/html
+
+# Stage 2: Runtime Stage
+
+FROM nginxinc/nginx-unprivileged:alpine AS runtime
+
+COPY --from=build /app/dist /usr/share/nginx/html
+
 COPY nginx.conf /etc/nginx/conf.d/default.conf
-EXPOSE 80
+
+EXPOSE 8080
+
 CMD ["nginx", "-g", "daemon off;"]
