@@ -38,10 +38,20 @@ variable "task_cpu" {
   description = "CPU units allocated to the Fargate task"
   type        = number
   default     = 256
+
+  validation {
+    condition     = contains([256, 512, 1024, 2048, 4096, 8192, 16384], var.task_cpu)
+    error_message = "Task CPU must be a supported AWS Fargate CPU value."
+  }
 }
 
 variable "task_memory" {
   description = "Memory allocated to the Fargate task in MiB"
   type        = number
   default     = 512
+
+  validation {
+    condition     = contains([512, 1024, 2048, 3072, 4096, 5120, 6144, 7168, 8192, 9216, 10240, 11264, 12288, 13312, 14336, 15360, 16384], var.task_memory)
+    error_message = "Task memory must be a supported AWS Fargate memory value."
+  }
 }
