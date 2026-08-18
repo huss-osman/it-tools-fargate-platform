@@ -70,3 +70,14 @@ variable "desired_count" {
     error_message = "Desired count must be at least 1."
   }
 }
+
+variable "log_retention_days" {
+  description = "Number of days CloudWatch retains ECS application logs"
+  type        = number
+  default     = 7
+
+  validation {
+    condition     = contains([1, 3, 5, 7, 14, 30, 60, 90], var.log_retention_days)
+    error_message = "Log retention must be a supported CloudWatch retention period."
+  }
+}

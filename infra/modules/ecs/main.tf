@@ -8,7 +8,7 @@ resource "aws_ecs_cluster" "main" {
 
 resource "aws_cloudwatch_log_group" "app" {
   name              = "/ecs/it-tools"
-  retention_in_days = 7
+  retention_in_days = var.log_retention_days
 }
 
 resource "aws_iam_role" "ecs_task_execution" {
