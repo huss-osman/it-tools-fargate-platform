@@ -1,19 +1,24 @@
 variable "vpc_id" {
-  type = string
+  description = "ID of the VPC where the ALB is deployed"
+  type        = string
 }
 
 variable "public_subnet_ids" {
-  type = list(string)
+  description = "IDs of the public subnets used by the ALB"
+  type        = list(string)
 }
 
 variable "default_cidr_block" {
-  type = string
+  description = "CIDR block allowed to access the ALB"
+  type        = string
 }
 
 variable "app_port" {
-  type = number
+  description = "Application port used by the target group"
+  type        = number
 }
 
 variable "acm_certificate_arn" {
-  type = string
+  description = "ARN of the ACM certificate used for HTTPS"
+  type        = string
 }
