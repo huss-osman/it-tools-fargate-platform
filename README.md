@@ -107,8 +107,8 @@ Access the application locally at `http://localhost:8080`.
 
 ### Dockerfile
 - Implemented **non-root** user access to limit root access and enhance security
-- Introduced **multi-stage Dockerfile**, reducing image size by **87%**
-    - Docker image size comparison:
+- Introduced **multi-stage Dockerfile**, reducing image size by **~93%**
+    - Docker image size comparison: **1.39 GB → 99.2 MB**
     ![](assets/docker-image-comparison.png)
 
 ### Infrastructure
