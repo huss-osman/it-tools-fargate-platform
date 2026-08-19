@@ -53,6 +53,10 @@ resource "aws_lb_target_group" "app" {
   vpc_id               = var.vpc_id
   deregistration_delay = var.deregistration_delay
 
+  tags = {
+    Name = "it-tools-target-group"
+  }
+
   health_check {
     path                = var.health_check_path
     protocol            = "HTTP"
