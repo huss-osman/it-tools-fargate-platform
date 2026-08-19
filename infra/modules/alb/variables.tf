@@ -55,3 +55,14 @@ variable "unhealthy_threshold" {
     error_message = "Unhealthy threshold must be between 2 and 10."
   }
 }
+
+variable "deregistration_delay" {
+  description = "Time in seconds to drain connections from deregistering targets"
+  type        = number
+  default     = 30
+
+  validation {
+    condition     = var.deregistration_delay >= 0 && var.deregistration_delay <= 3600
+    error_message = "Deregistration delay must be between 0 and 3600 seconds."
+  }
+}
