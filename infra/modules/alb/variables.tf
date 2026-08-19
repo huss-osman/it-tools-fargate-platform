@@ -33,3 +33,25 @@ variable "health_check_path" {
     error_message = "Health check path must start with '/'."
   }
 }
+
+variable "healthy_threshold" {
+  description = "Number of successful health checks before a target is healthy"
+  type        = number
+  default     = 2
+
+  validation {
+    condition     = var.healthy_threshold >= 2 && var.healthy_threshold <= 10
+    error_message = "Healthy threshold must be between 2 and 10."
+  }
+}
+
+variable "unhealthy_threshold" {
+  description = "Number of failed health checks before a target is unhealthy"
+  type        = number
+  default     = 2
+
+  validation {
+    condition     = var.unhealthy_threshold >= 2 && var.unhealthy_threshold <= 10
+    error_message = "Unhealthy threshold must be between 2 and 10."
+  }
+}
