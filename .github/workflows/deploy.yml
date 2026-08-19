@@ -17,7 +17,7 @@ env:
   TF_WORKING_DIR: ./infra
 
 concurrency:
-  group: terraform-deploy
+  group: terraform-infrastructure
   cancel-in-progress: false
 
 jobs:
