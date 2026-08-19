@@ -49,7 +49,7 @@ resource "aws_lb_target_group" "app" {
   vpc_id      = var.vpc_id
 
   health_check {
-    path                = "/"
+    path                = var.health_check_path
     protocol            = "HTTP"
     port                = "traffic-port"
     healthy_threshold   = 2

@@ -22,3 +22,14 @@ variable "acm_certificate_arn" {
   description = "ARN of the ACM certificate used for HTTPS"
   type        = string
 }
+
+variable "health_check_path" {
+  description = "Path used by the ALB target group health check"
+  type        = string
+  default     = "/"
+
+  validation {
+    condition     = startswith(var.health_check_path, "/")
+    error_message = "Health check path must start with '/'."
+  }
+}
