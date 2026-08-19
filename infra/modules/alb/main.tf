@@ -39,6 +39,10 @@ resource "aws_lb" "main" {
   security_groups = [aws_security_group.alb.id]
 
   drop_invalid_header_fields = true
+
+  tags = {
+    Name = "it-tools-alb"
+  }
 }
 
 resource "aws_lb_target_group" "app" {
