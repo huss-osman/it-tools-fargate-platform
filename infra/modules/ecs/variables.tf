@@ -92,3 +92,9 @@ variable "image_tag" {
     error_message = "Image tag must not be empty."
   }
 }
+
+variable "aws_region" {
+  description = "AWS region used by ECS and CloudWatch Logs"
+  type        = string
+  default     = "eu-west-2"
+}
