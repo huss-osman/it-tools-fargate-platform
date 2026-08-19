@@ -2,6 +2,11 @@ name: Terraform Deploy
 
 on:
   workflow_dispatch:
+    inputs:
+      image_tag:
+        description: "ECR image tag to deploy"
+        required: true
+        type: string
 
 permissions:
   id-token: write
@@ -53,7 +58,7 @@ jobs:
           soft_fail: true
 
       - name: Terraform Plan
-        run: terraform plan -out=tfplan
+        run: terraform plan -var="image_tag=${{ inputs.image_tag }}" -out=tfplan
 
       - name: Terraform Apply
         run: terraform apply -auto-approve tfplan

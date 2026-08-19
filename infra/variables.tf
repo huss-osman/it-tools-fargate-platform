@@ -27,3 +27,14 @@ variable "default_cidr_block" {
   type        = string
   default     = "0.0.0.0/0"
 }
+
+variable "image_tag" {
+  description = "ECR image tag deployed to the ECS service"
+  type        = string
+  default     = "latest"
+
+  validation {
+    condition     = length(trimspace(var.image_tag)) > 0
+    error_message = "Image tag must not be empty."
+  }
+}

@@ -37,6 +37,7 @@ module "ecs" {
   app_port    = 8080
   task_cpu    = 256
   task_memory = 512
+  image_tag   = var.image_tag
 }
 
 resource "aws_route53_record" "app" {
