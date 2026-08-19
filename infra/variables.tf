@@ -8,12 +8,22 @@ variable "public_subnet_cidr_blocks" {
   description = "CIDR blocks for the public subnets"
   type        = list(string)
   default     = ["10.0.0.0/25", "10.0.1.0/25"]
+
+  validation {
+    condition     = length(var.public_subnet_cidr_blocks) == length(var.availability_zones)
+    error_message = "Public subnet CIDR count must match the number of Availability Zones."
+  }
 }
 
 variable "private_subnet_cidr_blocks" {
   description = "CIDR blocks for the private subnets"
   type        = list(string)
   default     = ["10.0.2.0/25", "10.0.3.0/25"]
+
+  validation {
+    condition     = length(var.private_subnet_cidr_blocks) == length(var.availability_zones)
+    error_message = "Private subnet CIDR count must match the number of Availability Zones."
+  }
 }
 
 variable "availability_zones" {
