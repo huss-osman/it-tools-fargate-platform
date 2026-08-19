@@ -30,6 +30,10 @@ resource "aws_iam_role" "ecs_task_execution" {
       }
     ]
   })
+
+  tags = {
+    Name = "it-tools-ecs-task-execution-role"
+  }
 }
 
 resource "aws_iam_role_policy_attachment" "ecs_task_execution" {
@@ -73,6 +77,10 @@ resource "aws_ecs_task_definition" "app" {
 
   execution_role_arn = aws_iam_role.ecs_task_execution.arn
 
+  tags = {
+    Name = "it-tools-task-definition"
+  }
+
   container_definitions = jsonencode([
     {
       name      = "it-tools"
@@ -106,6 +114,13 @@ resource "aws_ecs_service" "app" {
   task_definition = aws_ecs_task_definition.app.arn
   desired_count   = var.desired_count
   launch_type     = "FARGATE"
+
+  enable_ecs_managed_tags = true
+  propagate_tags          = "SERVICE"
+
+  tags = {
+    Name = "it-tools-service"
+  }
 
   deployment_minimum_healthy_percent = 100
   deployment_maximum_percent         = 200
