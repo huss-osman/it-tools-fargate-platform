@@ -25,7 +25,7 @@ resource "aws_route53_record" "validation" {
   name    = each.value.name
   type    = each.value.type
   records = [each.value.record]
-  ttl     = 60
+  ttl     = var.validation_record_ttl
 }
 
 resource "aws_acm_certificate_validation" "main" {
