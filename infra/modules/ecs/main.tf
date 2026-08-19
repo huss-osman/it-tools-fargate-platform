@@ -103,6 +103,9 @@ resource "aws_ecs_service" "app" {
   desired_count   = var.desired_count
   launch_type     = "FARGATE"
 
+  deployment_minimum_healthy_percent = 100
+  deployment_maximum_percent         = 200
+
   deployment_circuit_breaker {
     enable   = true
     rollback = true
