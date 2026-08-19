@@ -32,7 +32,7 @@ module "ecs" {
   private_subnet_ids    = module.vpc.private_subnet_ids
   alb_security_group_id = module.alb.alb_security_group_id
   target_group_arn      = module.alb.target_group_arn
-  ecr_repository_url    = "606349121896.dkr.ecr.eu-west-2.amazonaws.com/it-tools-fargate"
+  ecr_repository_url    = var.ecr_repository_url
 
   app_port    = 8080
   task_cpu    = 256

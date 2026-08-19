@@ -48,3 +48,14 @@ variable "image_tag" {
     error_message = "Image tag must not be empty."
   }
 }
+
+variable "ecr_repository_url" {
+  description = "URL of the ECR repository containing the application image"
+  type        = string
+  default     = "606349121896.dkr.ecr.eu-west-2.amazonaws.com/it-tools-fargate"
+
+  validation {
+    condition     = length(trimspace(var.ecr_repository_url)) > 0
+    error_message = "ECR repository URL must not be empty."
+  }
+}
