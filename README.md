@@ -1,17 +1,11 @@
 # IT Tools Platform on AWS (ECS Fargate, Terraform, CI/CD)
 
-![AWS](https://img.shields.io/badge/AWS-232F3E?logo=amazonaws&logoColor=white)
-![ECS Fargate](https://img.shields.io/badge/ECS_Fargate-FF9900?logo=amazonecs&logoColor=white)
-![Terraform](https://img.shields.io/badge/Terraform-844FBA?logo=terraform&logoColor=white)
-![IaC](https://img.shields.io/badge/IaC-7B42BC)
-![GitHub Actions](https://img.shields.io/badge/GitHub_Actions-2088FF?logo=githubactions&logoColor=white)
-![CI/CD](https://img.shields.io/badge/CI%2FCD-0078D4)
-![Docker](https://img.shields.io/badge/Docker-2496ED?logo=docker&logoColor=white)
-![Containers](https://img.shields.io/badge/Containers-2496ED)
-![Security](https://img.shields.io/badge/Security-DC3545)
-![OIDC](https://img.shields.io/badge/OIDC-28A745)
-![IAM](https://img.shields.io/badge/IAM-FF9900)
-![Least Privilege](https://img.shields.io/badge/Least_Privilege-DC3545)
+![AWS](https://img.shields.io/badge/AWS-ECS%20Fargate-orange)
+![Terraform](https://img.shields.io/badge/Terraform-IaC-purple)
+![GitHub Actions](https://img.shields.io/badge/GitHub%20Actions-CI%2FCD-blue)
+![Docker](https://img.shields.io/badge/Docker-Containers-blue)
+![OIDC](https://img.shields.io/badge/Security-OIDC-green)
+![IAM](https://img.shields.io/badge/IAM-Least%20Privilege-red)
 
 ## Project Overview
 
