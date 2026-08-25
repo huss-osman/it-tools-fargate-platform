@@ -209,6 +209,24 @@ This project uses three GitHub Actions workflows with clear separation of respon
 
 ---
 
+## Project Delivery
+
+This project uses a GitHub Projects Kanban board to organise and track engineering tasks throughout development.
+
+### Kanban Board
+
+- Tracks work across Backlog, Ready, In Progress, In Review, and Done
+- Covers containerisation, AWS infrastructure, Terraform, CI/CD, security, and documentation
+- Provides clear visibility into current progress and upcoming work
+- Breaks the platform build into manageable engineering tasks
+
+> [!NOTE]
+> The Kanban workflow provides a structured approach to planning, implementing, reviewing, and completing project work.
+
+![ECS Project Kanban Board](assets/ecs-project-kanban-board.png)
+
+---
+
 ## Getting Started
 
 #### Prerequisites: Docker installed on your machine.
