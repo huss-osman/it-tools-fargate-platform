@@ -23,6 +23,7 @@
 - [Key Components](#key-components)
 - [Cost & Availability Decisions](#cost--availability-decisions)
 - [CI/CD Pipelines](#cicd-pipelines)
+- [Project Delivery](#project-delivery)
 - [Getting Started](#getting-started)
 - [Lessons Learned](#lessons-learned)
 - [Future Improvements](#future-improvements)
