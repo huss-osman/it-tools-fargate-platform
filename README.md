@@ -69,42 +69,46 @@ The platform runs in a custom VPC spanning two Availability Zones and follows st
 ---
 
 ## Repository Structure
+
 ```
-.
+it-tools-fargate-platform/
 ├── .github/
 │   └── workflows/
-│       ├── build.yml
-│       ├── deploy.yml
-│       └── destroy.yml
+│       ├── build.yml              # Build, scan, and push container image to ECR
+│       ├── deploy.yml             # Terraform plan, security scan, and infrastructure deployment
+│       └── destroy.yml            # Terraform infrastructure teardown
 ├── app/
-│   ├── Dockerfile
-│   ├── nginx.conf
-│   └── app source code
+│   ├── Dockerfile                 # Multi-stage container build with non-root runtime
+│   ├── nginx.conf                 # NGINX configuration for serving IT Tools
+│   └── app source code            # IT Tools application source
 │
-├── bootstrap/
-│   ├── main.tf
-│   ├── outputs.tf
-│   ├── provider.tf
-│   └── variables.tf
+├── bootstrap/                     # Initial AWS resources required before main deployment
+│   ├── main.tf                    # S3 backend, ECR, IAM, and GitHub OIDC resources
+│   ├── outputs.tf                 # Bootstrap resource outputs
+│   ├── provider.tf                # AWS provider configuration
+│   └── variables.tf               # Bootstrap input variables
 │
 ├── infra/
-│   ├── main.tf
-│   ├── outputs.tf
-│   ├── provider.tf
-│   ├── variables.tf
+│   ├── main.tf                    # Wires infrastructure modules together
+│   ├── outputs.tf                 # Infrastructure outputs
+│   ├── provider.tf                # Provider and remote state configuration
+│   ├── variables.tf               # Infrastructure input variables
 │   └── modules/
-│       ├── acm/
-│       ├── alb/
-│       ├── ecs/
-│       └── vpc/
-├── assets/
+│       ├── acm/                   # TLS certificate and validation
+│       ├── alb/                   # Application Load Balancer and HTTPS listeners
+│       ├── ecs/                   # ECS Fargate service, task definition, IAM, and logging
+│       └── vpc/                   # VPC, public/private subnets, routing, and NAT
+│
+├── assets/                        # Architecture, pipeline, project board, and deployment screenshots
 │   ├── build-and-push.png
 │   ├── docker-image-comparison.png
+│   ├── ecs-diagram.png
+│   ├── ecs-project-kanban-board.png
 │   ├── live-application.png
 │   ├── terraform-deploy.png
 │   └── terraform-destroy.png
-├── .gitignore
-└── README.md
+├── .gitignore                     # Files excluded from version control
+└── README.md                      # Project documentation
 ```
 
 ---
