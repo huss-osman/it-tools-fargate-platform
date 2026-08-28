@@ -1,3 +1,8 @@
+data "aws_route53_zone" "main" {
+  name         = "osmanhus.co.uk"
+  private_zone = false
+}
+
 module "vpc" {
   source = "./modules/vpc"
 
@@ -12,7 +17,7 @@ module "acm" {
   source = "./modules/acm"
 
   domain_name     = "tools.osmanhus.co.uk"
-  route53_zone_id = "Z07309333UA1A4Q6ZLQ9L"
+  route53_zone_id = data.aws_route53_zone.main.zone_id
 }
 
 module "alb" {
@@ -41,7 +46,7 @@ module "ecs" {
 }
 
 resource "aws_route53_record" "app" {
-  zone_id = "Z07309333UA1A4Q6ZLQ9L"
+  zone_id = data.aws_route53_zone.main.zone_id
   name    = "tools.osmanhus.co.uk"
   type    = "A"
 
