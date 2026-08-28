@@ -1,12 +1,11 @@
-name: Terraform Deploy
+name: Terraform Plan
 
 on:
-  workflow_dispatch:
-    inputs:
-      image_tag:
-        description: "ECR image tag to deploy"
-        required: true
-        type: string
+  pull_request:
+    branches: [main]
+    paths:
+      - "infra/**"
+      - ".github/workflows/plan.yml"
 
 permissions:
   id-token: write
@@ -16,12 +15,8 @@ env:
   AWS_REGION: eu-west-2
   TF_WORKING_DIR: ./infra
 
-concurrency:
-  group: terraform-infrastructure
-  cancel-in-progress: false
-
 jobs:
-  deploy:
+  plan:
     runs-on: ubuntu-latest
 
     defaults:
@@ -43,14 +38,21 @@ jobs:
         with:
           terraform_version: 1.15.8
 
+      - name: Terraform Format Check
+        run: terraform fmt -check -recursive
+
       - name: Terraform Init
         run: terraform init
 
-      - name: Terraform Apply
-        run: terraform apply -auto-approve -var="image_tag=${{ inputs.image_tag }}"
+      - name: Terraform Validate
+        run: terraform validate
 
-      - name: Post Deploy Health Check
-        working-directory: .
-        run: |
-          echo "Checking application health..."
-          curl --fail --retry 10 --retry-delay 10 https://tools.osmanhus.co.uk
+      - name: Infrastructure Security Scan
+        uses: bridgecrewio/checkov-action@v12
+        with:
+          directory: infra
+          framework: terraform
+          soft_fail: true
+
+      - name: Terraform Plan
+        run: terraform plan -var="image_tag=latest"
