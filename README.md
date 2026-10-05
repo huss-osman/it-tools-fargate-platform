@@ -202,14 +202,28 @@ This project uses three GitHub Actions workflows with clear separation of respon
 > [!IMPORTANT]
 > GitHub Actions authenticates to AWS using **OIDC and temporary credentials**, eliminating the need to store long-lived AWS access keys.
 
+<p align="right">
+  <img src="https://github.com/huss-osman/it-tools-fargate-platform/actions/workflows/build.yml/badge.svg?branch=main">
+</p>
+
 ![Build and Push](assets/build-and-push.png)
 
 
 ### 2) Deploy and Post Health Check
+
+<p align="right">
+  <img src="https://github.com/huss-osman/it-tools-fargate-platform/actions/workflows/deploy.yml/badge.svg?branch=main">
+</p>
+
 ![Deploy](assets/terraform-deploy.png)
 
 
 ### 3) Destroy Infrastructure
+
+<p align="right">
+  <img src="https://github.com/huss-osman/it-tools-fargate-platform/actions/workflows/destroy.yml/badge.svg?branch=main">
+</p>
+
 ![Destroy](assets/terraform-destroy.png)
 
 ---
